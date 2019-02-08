@@ -23,35 +23,38 @@ def scoreGlobalAlignment(s_seq, m, t_seq, n):
   n = n + 1
 
   # empty score matrix
-  s = []
+  s = [[], []]
 
   # initialise first row of needleman-wunch matrix
-  s.append([i * INDEL_SCORE for i in range(0, m)])
+  s[0] = [i * INDEL_SCORE for i in range(0, m)]
 
   # initialise each row after
   for j in range(1,n):
-    s.append([0] * (m))
-    s[j][0] = j * INDEL_SCORE
+    s[1] = [0] * m
+    s[1][0] = j * INDEL_SCORE
 
     for i in range(1, m):
       # do alignment check
       if (s_seq[i] == t_seq[j]):
-        s[j][i] = s[j-1][i-1] + MATCH_SCORE
+        s[1][i] = s[0][i-1] + MATCH_SCORE
       else:
-        s[j][i] = s[j-1][i-1] + MISMATCH_SCORE
+        s[1][i] = s[0][i-1] + MISMATCH_SCORE
     
-      sc = s[j -1][i] + INDEL_SCORE
-      if (sc > s[j][i]):
-        s[j][i] = sc
+      sc = s[1 -1][i] + INDEL_SCORE
+      if (sc > s[1][i]):
+        s[1][i] = sc
 
-      sc = s[j][i-1] + INDEL_SCORE
-      if (sc > s[j][i]):
-        s[j][i] = sc
+      sc = s[1][i-1] + INDEL_SCORE
+      if (sc > s[1][i]):
+        s[1][i] = sc
+    
+    # replace s[0], only need to keep the last two rows
+    s[0] = s[1]
+    print("Iteration : " + str(j))
+  return s[1][i]
 
-  return s[j][i]
-
-s_count, s_seq = readSequenceFile("testSeqT.txt")
-t_count, t_seq = readSequenceFile("testSeqS.txt")
+s_count, s_seq = readSequenceFile("seqT.txt")
+t_count, t_seq = readSequenceFile("seqS.txt")
 
 # record start time
 start = time.time()
