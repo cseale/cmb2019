@@ -1,6 +1,6 @@
 import time
 
-MATCH_SCORE = 1
+MATCH_SCORE = 2
 MISMATCH_SCORE = -1
 INDEL_SCORE = -1
 
