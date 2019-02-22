@@ -1,0 +1,14 @@
+Results from running main.py, where sequence S1 labelled as 1, S2 as 2, etc:
+
+[1, 6, 75.0]
+[4, 6, 98.0]
+[2, 7, 76.625]
+[5, 7, 97.375]
+[3, 8, 101.125]
+[6, 8, 10.375]
+[7, 8, 9.875]
+[8, 7, 9.875]
+
+
+Or in newick format
+((1,4)6,3)8,(2,5),7) 
